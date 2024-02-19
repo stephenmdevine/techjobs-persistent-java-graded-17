@@ -19,11 +19,12 @@ public class Job extends AbstractEntity{
     public Job() {
     }
 
-    // Initialize the id and value fields.
-    public Job(Employer anEmployer) {
+    public Job(Employer employer, List<Skill> skills) {
         super();
-        this.employer = anEmployer;
+        this.employer = employer;
+        this.skills = skills;
     }
+
 
     // Getters and setters.
 
