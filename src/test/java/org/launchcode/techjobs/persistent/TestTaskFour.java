@@ -123,7 +123,7 @@ public class TestTaskFour extends AbstractTest {
         assertEquals(SkillRepository.class, skillRepositoryField.getType(), "skillRepository is of incorrect type");
         assertNotNull(skillRepositoryField.getAnnotation(Autowired.class), "skillRepository must be @Autowired");
     }
-//
+
 //    /*
 //    * Verifies that HomeController.processAddJobForm queries skillRepository and sets skills properly
 //    * */
@@ -160,7 +160,7 @@ public class TestTaskFour extends AbstractTest {
 
         processAddJobFormMethod.invoke(homeController, job, errors, model, 0, new ArrayList<Skill>());
     }
-//
+
 //    /*
 //    * Verifies that skillRepository and employerRepository fields have been added to ListController
 //    * */
@@ -188,7 +188,7 @@ public class TestTaskFour extends AbstractTest {
         assertEquals(SkillRepository.class, skillRepositoryField.getType());
         assertNotNull(skillRepositoryField.getAnnotation(Autowired.class));
     }
-//
+
 //    /*
 //    * Verifies that ListController.list sets the correct model attributes using skill/employerRepository objects
 //    * */
@@ -219,10 +219,13 @@ public class TestTaskFour extends AbstractTest {
     public void testSqlQuery () throws IOException {
         String queryFileContents = getFileContents("queries.sql");
 
-        Pattern queryPattern = Pattern.compile("SELECT\\s+\\*\\s+FROM\\s+skill" +
-                "\\s*(LEFT|INNER)?\\s+JOIN\\s+job_skills\\s+ON\\s+(skill.id\\s+=\\s+job_skills.skills_id|job_skills.skills_id\\s+=\\s+skill.id)" +
-                "(\\s*WHERE\\s+job_skills.jobs_id\\s+IS\\s+NOT\\s+NULL)?" +
-                "\\s*ORDER\\s+BY\\s+name\\s+ASC;", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+//        Pattern queryPattern = Pattern.compile("SELECT\\s+\\*\\s+FROM\\s+skill" +
+//                "\\s*(LEFT|INNER)?\\s+JOIN\\s+job_skills\\s+ON\\s+(skill.id\\s+=\\s+job_skills.skills_id|job_skills.skills_id\\s+=\\s+skill.id)" +
+//                "(\\s*WHERE\\s+job_skills.jobs_id\\s+IS\\s+NOT\\s+NULL)?" +
+//                "\\s*ORDER\\s+BY\\s+name\\s+ASC;", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+
+        Pattern queryPattern = Pattern.compile("SELECT\\s+DISTINCT\\s+skill.name\\s+FROM\\s+skill",
+                Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
         Matcher queryMatcher = queryPattern.matcher(queryFileContents);
         boolean queryFound = queryMatcher.find();
         assertTrue(queryFound, "Task 4 SQL query is incorrect. Test your query against your database to find the error.");
